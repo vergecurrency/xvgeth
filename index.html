@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>xvgeth.xvgtokens.com</title>
+    <meta
+      name="description"
+      content="Ethereum token page for XVGETH on xvgeth.xvgtokens.com."
+    />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <script>
+      (function restoreSpaRoute() {
+        const url = new URL(window.location.href);
+        const redirect = url.searchParams.get("__redirect");
+
+        if (!redirect) {
+          return;
+        }
+
+        url.searchParams.delete("__redirect");
+
+        const restoredUrl = new URL(redirect, window.location.origin);
+        const remainingQuery = url.searchParams.toString();
+
+        if (remainingQuery) {
+          restoredUrl.search = restoredUrl.search
+            ? `${restoredUrl.search}&${remainingQuery}`
+            : `?${remainingQuery}`;
+        }
+
+        window.history.replaceState({}, "", `${restoredUrl.pathname}${restoredUrl.search}${restoredUrl.hash}`);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
