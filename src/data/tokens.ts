@@ -69,6 +69,11 @@ export const tokensBySlug: Record<TokenSlug, TokenDefinition> = {
         kind: "market",
       },
       {
+        label: "Yahoo Finance",
+        href: "https://finance.yahoo.com/quote/XVG-ETH/",
+        kind: "market",
+      },
+      {
         label: "View on GeckoTerminal",
         href: "https://www.geckoterminal.com/eth/pools/0x0c42f082569045e89ae9eef6ecddada48fe40f3dbc663cfbd480d1ec7876cc9c",
         kind: "dex",
