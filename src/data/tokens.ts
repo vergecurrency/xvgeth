@@ -59,6 +59,16 @@ export const tokensBySlug: Record<TokenSlug, TokenDefinition> = {
         kind: "explorer",
       },
       {
+        label: "CoinGecko",
+        href: "https://www.coingecko.com/en/coins/verge-eth",
+        kind: "market",
+      },
+      {
+        label: "CoinMarketCap",
+        href: "https://coinmarketcap.com/currencies/verge-eth/",
+        kind: "market",
+      },
+      {
         label: "View on GeckoTerminal",
         href: "https://www.geckoterminal.com/eth/pools/0x0c42f082569045e89ae9eef6ecddada48fe40f3dbc663cfbd480d1ec7876cc9c",
         kind: "dex",

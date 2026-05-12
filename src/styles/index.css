@@ -2935,6 +2935,60 @@ body[data-view="swap"] .swap-progress__track {
   margin-top: 1.5rem;
 }
 
+.token-page__farm-status-card {
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(248, 113, 113, 0.18);
+  border-radius: 1.3rem;
+  background:
+    linear-gradient(180deg, rgba(248, 113, 113, 0.08), rgba(248, 113, 113, 0.03)),
+    rgba(255, 255, 255, 0.03);
+}
+
+.token-page__farm-status-label {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: rgba(148, 163, 184, 0.82);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.token-page__farm-status-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.token-page__farm-status-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: #ef4444;
+  box-shadow: 0 0 0 rgba(239, 68, 68, 0.72);
+  animation: tokenFarmStatusPulse 1.5s infinite;
+}
+
+@keyframes tokenFarmStatusPulse {
+  0% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.72);
+  }
+
+  70% {
+    opacity: 0.72;
+    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+  }
+
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
 .token-page__chart-section {
   display: grid;
   gap: 1.4rem;

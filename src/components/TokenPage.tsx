@@ -768,6 +768,26 @@ export function TokenPage({ token }: TokenPageProps) {
         </section>
       ) : null}
 
+      <section className="token-page__resources token-page__farm-status">
+        <div className="token-page__section-head">
+          <div>
+            <div className="token-page__section-eyebrow">
+              <Sparkles className="h-4 w-4" />
+              Farm
+            </div>
+            <h2>Liquidity Farm</h2>
+          </div>
+        </div>
+
+        <div className="token-page__farm-status-card">
+          <span className="token-page__farm-status-label">Status</span>
+          <strong className="token-page__farm-status-value">
+            <span className="token-page__farm-status-dot" aria-hidden="true" />
+            Coming soon
+          </strong>
+        </div>
+      </section>
+
       <footer id="socials" className="token-page__footer">
         <div className="token-page__socials">
           {socials.map((social) => (
