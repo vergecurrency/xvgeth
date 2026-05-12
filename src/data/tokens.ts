@@ -51,7 +51,7 @@ export const tokensBySlug: Record<TokenSlug, TokenDefinition> = {
     landingGlowSecondary: "#8db8ff",
     landingGlowMode: "dual",
     description:
-      "XVGETH is the Ethereum-based XVG branded token for the xvgtokens ecosystem. This page mirrors the XVGTokens token layout while focusing exclusively on the Ethereum deployment, contract details, wallet support, and explorer access.",
+      "XVGETH is the Ethereum-based XVG branded token for the xvgtokens ecosystem. XVGETH holders have received numerous FREE airdrops of other XVG ecosystem tokens, including $XVGBASE, $XVGBSC, $XVGPOLY, and $XVGUNI. This page mirrors the XVGTokens token layout while focusing exclusively on the Ethereum deployment, contract details, wallet support, and explorer access.",
     links: [
       {
         label: "View on Etherscan",
