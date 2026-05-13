@@ -44,6 +44,7 @@ export const tokensBySlug: Record<TokenSlug, TokenDefinition> = {
     symbol: "XVGETH",
     chainName: "Ethereum",
     chainMenuLabel: "Ethereum",
+    marketChartId: "verge-eth",
     contractAddress: sharedContractAddress,
     icon: "/images/xvgeth.jpg",
     glow: "sky",
