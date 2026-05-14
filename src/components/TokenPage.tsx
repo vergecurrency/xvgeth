@@ -2,7 +2,9 @@ import { Check, Copy, ExternalLink, Sparkles, TrendingUp, Wallet } from "lucide-
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { formatUnits, parseAbi } from "viem";
 import { useAccount, usePublicClient, useSwitchChain } from "wagmi";
+import { SwapWidget } from "@/components/SwapWidget";
 import { socials, type TokenDefinition } from "@/data/tokens";
+import { getAssetsForChain, getDefaultSellAsset } from "@/lib/swap";
 
 type TokenPageProps = {
   token: TokenDefinition;
@@ -276,6 +278,9 @@ export function TokenPage({ token }: TokenPageProps) {
   const geckoTerminalPool = getGeckoTerminalPool(token);
   const geckoTerminalNetwork = geckoTerminalPool?.network ?? null;
   const geckoTerminalPoolAddress = geckoTerminalPool?.poolAddress ?? null;
+  const swapChainAssets = getAssetsForChain(targetChainId);
+  const swapSellAsset = getDefaultSellAsset(targetChainId);
+  const hasMiniSwap = Boolean(swapSellAsset && swapSellAsset.tokenSlug === token.slug && swapChainAssets.length > 1);
   const hasMarketChart = Boolean(token.marketChartId || geckoTerminalPoolAddress);
   const chartSourceName = token.marketChartId ? "CoinGecko" : geckoTerminalPoolAddress ? "GeckoTerminal" : "Market";
   const [marketChart, setMarketChart] = useState<MarketChartState>({
@@ -527,6 +532,9 @@ export function TokenPage({ token }: TokenPageProps) {
   const derivedSpotPriceUsd = spotPriceUsd ?? lastPoint?.price ?? null;
   const tokenBalanceUsd =
     Number.isFinite(tokenBalanceDecimal) && derivedSpotPriceUsd !== null ? tokenBalanceDecimal * derivedSpotPriceUsd : null;
+  const chartAreaGradientId = `${token.slug}-price-area`;
+  const chartLineGradientId = `${token.slug}-price-line`;
+  const chartGlowGradientId = `${token.slug}-price-glow`;
 
   async function handleSwitchChain() {
     if (!switchChainAsync) {
@@ -666,6 +674,27 @@ export function TokenPage({ token }: TokenPageProps) {
         </div>
       </section>
 
+      {hasMiniSwap ? (
+        <section className="token-page__resources token-page__swap-section">
+          <div className="token-page__section-head">
+            <div>
+              <div className="token-page__section-eyebrow">
+                <Sparkles className="h-4 w-4" />
+                Swap
+              </div>
+              <h2>Swap on {token.chainName}</h2>
+            </div>
+          </div>
+          <SwapWidget
+            mode="compact"
+            fixedChainId={targetChainId}
+            defaultSellAssetId={swapSellAsset?.id}
+            eyebrow={token.chainName}
+            heading={`Swap ${token.symbol}`}
+          />
+        </section>
+      ) : null}
+
       {hasMarketChart ? (
         <section className="token-page__resources token-page__chart-section">
           <div className="token-page__section-head">
@@ -728,19 +757,30 @@ export function TokenPage({ token }: TokenPageProps) {
                     aria-label={`${token.symbol} 30 day price chart`}
                   >
                     <defs>
-                      <linearGradient id="token-price-area" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="rgba(56, 189, 248, 0.36)" />
-                        <stop offset="100%" stopColor="rgba(56, 189, 248, 0)" />
+                      <linearGradient id={chartAreaGradientId} x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="rgba(255, 255, 255, 0.24)" />
+                        <stop offset="22%" stopColor="rgba(255, 139, 214, 0.26)" />
+                        <stop offset="58%" stopColor="rgba(124, 58, 237, 0.22)" />
+                        <stop offset="100%" stopColor="rgba(12, 10, 27, 0)" />
+                      </linearGradient>
+                      <linearGradient id={chartLineGradientId} x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="#ff5faa" />
+                        <stop offset="48%" stopColor="#7c3aed" />
+                        <stop offset="82%" stopColor="#d8d4ff" />
+                        <stop offset="100%" stopColor="#ffffff" />
+                      </linearGradient>
+                      <linearGradient id={chartGlowGradientId} x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="rgba(255, 95, 170, 0.6)" />
+                        <stop offset="48%" stopColor="rgba(124, 58, 237, 0.55)" />
+                        <stop offset="100%" stopColor="rgba(255, 255, 255, 0.5)" />
                       </linearGradient>
                     </defs>
                     <line x1={chartPadding} y1={chartPadding} x2={chartWidth - chartPadding} y2={chartPadding} className="token-page__chart-grid" />
                     <line x1={chartPadding} y1={chartHeight / 2} x2={chartWidth - chartPadding} y2={chartHeight / 2} className="token-page__chart-grid" />
                     <line x1={chartPadding} y1={chartHeight - chartPadding} x2={chartWidth - chartPadding} y2={chartHeight - chartPadding} className="token-page__chart-grid" />
-                    <path d={areaPath} fill="url(#token-price-area)" />
-                    <path
-                      d={linePath}
-                      className={`token-page__chart-line ${isPositiveChart ? "is-positive" : "is-negative"}`}
-                    />
+                    <path d={areaPath} fill={`url(#${chartAreaGradientId})`} />
+                    <path d={linePath} className="token-page__chart-line-glow" stroke={`url(#${chartGlowGradientId})`} />
+                    <path d={linePath} className="token-page__chart-line" stroke={`url(#${chartLineGradientId})`} />
                     {lastPoint ? (
                       <circle
                         cx={chartWidth - chartPadding}
@@ -752,7 +792,8 @@ export function TokenPage({ token }: TokenPageProps) {
                                 (chartHeight - chartPadding * 2)
                         }
                         r="5"
-                        className={`token-page__chart-point ${isPositiveChart ? "is-positive" : "is-negative"}`}
+                        className="token-page__chart-point"
+                        fill={`url(#${chartLineGradientId})`}
                       />
                     ) : null}
                   </svg>

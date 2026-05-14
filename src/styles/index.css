@@ -3095,12 +3095,21 @@ body[data-view="swap"] .swap-progress__track {
   stroke-width: 3;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.18));
+}
+
+.token-page__chart-line-glow {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.38;
+  filter: blur(5px);
 }
 
 .token-page__chart-point {
   stroke: rgba(2, 6, 23, 0.92);
   stroke-width: 3;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.18));
 }
 
 .token-page__chart-dates {
