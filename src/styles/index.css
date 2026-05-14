@@ -1858,6 +1858,14 @@ body[data-view="portfolio"] .portfolio-hero__body {
   gap: 0.9rem;
 }
 
+.swap-grid--compact {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.swap-widget--compact {
+  display: grid;
+}
+
 .swap-card {
   overflow: visible;
   background:
@@ -1877,6 +1885,13 @@ body[data-view="portfolio"] .portfolio-hero__body {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
+}
+
+.swap-card__intro {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .swap-card__eyebrow {
@@ -2933,6 +2948,31 @@ body[data-view="swap"] .swap-progress__track {
 
 .token-page__farm {
   margin-top: 1.5rem;
+}
+
+.token-page__swap-section {
+  display: grid;
+  gap: 1.4rem;
+}
+
+.token-page__swap-section .swap-card {
+  box-shadow:
+    0 18px 48px rgba(2, 6, 23, 0.32),
+    0 0 26px rgba(56, 189, 248, 0.06);
+}
+
+.token-page__swap-section .swap-card__header,
+.token-page__swap-section .swap-card__content {
+  padding-left: 0.7rem;
+  padding-right: 0.7rem;
+}
+
+.token-page__swap-section .swap-card__header {
+  padding-top: 0.4rem;
+}
+
+.token-page__swap-section .swap-card__content {
+  padding-bottom: 0.4rem;
 }
 
 .token-page__farm-status-card {
